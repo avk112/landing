@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useRef} from 'react';
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Banner from "./components/Banner";
+import VideoArea from "./components/VideoArea";
+import MenuArea from "./components/MenuArea";
+import GalleryArea from "./components/GalleryArea";
+import ReviewArea from "./components/ReviewArea";
+import BlogArea from "./components/BlogArea";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    const homeRef = useRef(null);
+    const aboutRef = useRef(null);
+    const coffeeRef = useRef(null);
+    const reviewRef = useRef(null);
+    const blogRef = useRef(null);
+
+    const smoothScroll = (e, myRef)=> {
+        myRef.current?.scrollIntoView({behavior:'smooth'})
+    }
+
+
+    return (
+        <div className="app">
+            <Header
+                homeRef={homeRef}
+                aboutRef={aboutRef}
+                coffeeRef={coffeeRef}
+                reviewRef={reviewRef}
+                blogRef={blogRef}
+                click={smoothScroll}
+            />
+            <main className="main">
+                <Banner myRef={homeRef}/>
+                <VideoArea myRef={aboutRef}/>
+                <MenuArea myRef={coffeeRef}/>
+                <GalleryArea myRef={reviewRef}/>
+                <ReviewArea/>
+                <BlogArea myRef={blogRef}/>
+            </main>
+            <Footer/>
+        </div>
+    );
+};
 
 export default App;
